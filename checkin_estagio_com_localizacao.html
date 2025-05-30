@@ -1,0 +1,35 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check-in de Estágio</title>
+    <script>
+      const formURL = "https://docs.google.com/forms/d/e/1FAIpQLSfOmwjQAjb2eER5MYKVEla_XOFkbgb5yLFMtg6F_Su91YcjlQ/viewform?usp=pp_url&entry.31503641=";
+
+      function redirectToForm(position) {
+        const loc = position ? position.coords.latitude + "," + position.coords.longitude : "erro";
+        window.location.href = formURL + encodeURIComponent(loc);
+      }
+
+      function getLocation() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(
+            redirectToForm,
+            () => redirectToForm(null),
+            { timeout: 7000 }
+          );
+        } else {
+          redirectToForm(null);
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <h2>Controle de Frequência</h2>
+    <p>Para confirmar sua presença, clique no botão abaixo para enviar sua localização.</p>
+    <button onclick="getLocation()" style="padding: 12px 20px; font-size: 16px;">Confirmar Presença</button>
+    <p style="margin-top:20px;">Se não funcionar, <a href="https://docs.google.com/forms/d/e/1FAIpQLSfOmwjQAjb2eER5MYKVEla_XOFkbgb5yLFMtg6F_Su91YcjlQ/viewform" target="_blank">acesse manualmente o formulário</a>.</p>
+  </body>
+</html>
